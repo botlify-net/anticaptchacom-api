@@ -1,0 +1,51 @@
+name: Publish release and package
+
+on:
+  push:
+    branches:
+      - main
+
+permissions: write-all
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      # Pull the code from the repository.
+      - name: Pull the code from the repository
+        uses: actions/checkout@v3
+      # Build the project with Maven.
+      - name: Install Java and Maven
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'adopt'
+      - name: Compilation with Maven and Unit test
+        run: mvn package && mvn test
+      ############################################
+      #   1. Create a release on GitHub
+      ############################################
+      # Get the project version from pom.xml.
+      - name: Get Project Version from pom.xml
+        id: pomVersion
+        uses: entimaniac/read-pom-version-action@1.0.0
+      # Create a release.
+      - name: Create Release
+        uses: actions/create-release@v1.1.4
+        env:
+          # This token is provided by Actions, you do not need to create your own token.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ steps.pomVersion.outputs.version }}
+          release_name: Version ${{ steps.pomVersion.outputs.version }}
+          body_path: CHANGELOG.md
+          draft: false
+          prerelease: false
+      ############################################
+      #   1. Create a package on GitHub
+      ############################################
+      # STEP 2: Publish to GitHub Packages
+      - name: Publish to GitHub Packages
+        run: mvn --batch-mode deploy
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
