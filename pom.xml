@@ -50,6 +50,13 @@
     <tag>master</tag>
   </scm>
 
+  <distributionManagement>
+    <repository>
+      <id>github</id>
+      <name>GitHub Botlify Apache Maven Packages</name>
+      <url>https://maven.pkg.github.com/botlify-net/anticaptchacom-api</url>
+    </repository>
+  </distributionManagement>
 
   <dependencies>
     <dependency>
