@@ -3,7 +3,7 @@ name: Publish release and package
 on:
   push:
     branches:
-      - main
+      - master
 
 permissions: write-all
 
