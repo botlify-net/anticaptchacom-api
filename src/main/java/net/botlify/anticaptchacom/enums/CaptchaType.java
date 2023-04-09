@@ -1,4 +1,4 @@
-package net.botlify.anticaptchacom;
+package net.botlify.anticaptchacom.enums;
 
 /**
  * The type of the captcha to solve.

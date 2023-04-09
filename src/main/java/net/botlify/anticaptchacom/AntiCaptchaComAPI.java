@@ -4,6 +4,8 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;
+import net.botlify.anticaptchacom.enums.CaptchaType;
+import net.botlify.anticaptchacom.request.SolveRequest;
 import okhttp3.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -13,7 +15,7 @@ import java.io.IOException;
 
 /**
  * The {@link AntiCaptchaComAPI} is the main class to use to 
- * solve captchas with anti-captcha.com.
+ * solve captcha with anti-captcha.com.
  */
 @Log4j2
 public class AntiCaptchaComAPI {
