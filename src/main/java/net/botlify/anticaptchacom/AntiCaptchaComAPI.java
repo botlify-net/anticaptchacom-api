@@ -4,21 +4,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.*;
 import lombok.extern.log4j.Log4j2;
 import net.botlify.anticaptchacom.enums.CaptchaServiceType;
-import net.botlify.anticaptchacom.request.*;
-import net.botlify.anticaptchacom.response.AppStatsResponse;
-import net.botlify.anticaptchacom.response.BalanceResponse;
+import net.botlify.anticaptchacom.exceptions.AntiCaptchaComException;
 import net.botlify.anticaptchacom.response.QueueStatsResponse;
-import net.botlify.anticaptchacom.response.SpendingStatsResponse;
-import net.botlify.anticaptchacom.response.solution.FunCaptchaSolution;
-import net.botlify.anticaptchacom.response.solution.SolveResponse;
-import net.botlify.anticaptchacom.response.solution.ImageToTextSolution;
-import net.botlify.anticaptchacom.response.solution.RecaptchaSolution;
 import okhttp3.*;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.concurrent.CompletableFuture;
 
 /**
  * The {@link AntiCaptchaComAPI} is the main class to use to 
@@ -28,6 +20,9 @@ import java.util.concurrent.CompletableFuture;
 @ToString
 @Log4j2
 public final class AntiCaptchaComAPI {
+
+    @NotNull @Getter
+    private static final String apiUrl = "https://api.anti-captcha.com";
 
     @NotNull @Getter(AccessLevel.PACKAGE)
     private final AntiCaptchaComConfig config;
@@ -40,149 +35,31 @@ public final class AntiCaptchaComAPI {
         this.config = config;
     }
 
-    // Image to text
-
-    public @NotNull SolveResponse<ImageToTextSolution> solve(@NotNull final ImageToTextRequest request)
-            throws AntiCaptchaComException, IOException {
-        return (solveSynchronized(request));
-    }
-
-    public @NotNull CompletableFuture<SolveResponse<ImageToTextSolution>> solveAsync(@NotNull final ImageToTextRequest request) {
-        return (this.solveAsynchronous(request));
-    }
-
-    // Recaptcha V2
-
-    public @NotNull SolveResponse<RecaptchaSolution> solve(@NotNull final RecaptchaV2Request request)
-            throws AntiCaptchaComException, IOException {
-        return (solveSynchronized(request));
-    }
-
-    public @NotNull CompletableFuture<SolveResponse<RecaptchaSolution>> solveAsync(@NotNull final RecaptchaV2Request request) {
-        return (solveAsynchronous(request));
-    }
-
-    // Recaptcha V2 Proxy
-
-    public @NotNull SolveResponse<RecaptchaSolution> solve(@NotNull final RecaptchaV2ProxyRequest request)
-            throws AntiCaptchaComException, IOException {
-        return (solveSynchronized(request));
-    }
-
-    public @NotNull CompletableFuture<SolveResponse<RecaptchaSolution>> solveAsync(@NotNull final RecaptchaV2ProxyRequest request) {
-        return (solveAsynchronous(request));
-    }
-
-    // Recaptcha V2 Enterprise
-
-    public @NotNull SolveResponse<RecaptchaSolution> solve(@NotNull final RecaptchaV2EnterpriseRequest request)
-            throws AntiCaptchaComException, IOException {
-        return (solveSynchronized(request));
-    }
-
-    public @NotNull CompletableFuture<SolveResponse<RecaptchaSolution>> solveAsync(@NotNull final RecaptchaV2EnterpriseRequest request) {
-        return (solveAsynchronous(request));
-    }
-
-    // Recaptcha V2 Enterprise Proxy
-
-    public @NotNull SolveResponse<RecaptchaSolution> solve(@NotNull final RecaptchaV2EnterpriseProxyRequest request)
-            throws AntiCaptchaComException, IOException {
-        return (solveSynchronized(request));
-    }
-
-    public @NotNull CompletableFuture<SolveResponse<RecaptchaSolution>> solveAsync(@NotNull final RecaptchaV2EnterpriseProxyRequest request) {
-        return (solveAsynchronous(request));
-    }
-
-    // Recaptcha V3
-
-    public @NotNull SolveResponse<RecaptchaSolution> solve(@NotNull final RecaptchaV3Request request)
-            throws AntiCaptchaComException, IOException {
-        return (solveSynchronized(request));
-    }
-
-    public @NotNull CompletableFuture<SolveResponse<RecaptchaSolution>> solveAsync(@NotNull final RecaptchaV3Request request) {
-        return (solveAsynchronous(request));
-    }
-
-    // Recaptcha V3 Enterprise
-
-    public @NotNull SolveResponse<RecaptchaSolution> solve(@NotNull final RecaptchaV3EnterpriseRequest request)
-            throws AntiCaptchaComException, IOException {
-        return (solveSynchronized(request));
-    }
-
-    public @NotNull CompletableFuture<SolveResponse<RecaptchaSolution>> solveAsync(@NotNull final RecaptchaV3EnterpriseRequest request) {
-        return (solveAsynchronous(request));
-    }
-
-    // Fun captcha
-
-    public @NotNull SolveResponse<FunCaptchaSolution> solve(@NotNull final FunCaptchaRequest request)
-            throws AntiCaptchaComException, IOException {
-        return (solveSynchronized(request));
-    }
-
-    public @NotNull CompletableFuture<SolveResponse<FunCaptchaSolution>> solveAsync(@NotNull final FunCaptchaRequest request) {
-        return (solveAsynchronous(request));
-    }
-
-    // Fun captcha proxy
-
-    public @NotNull SolveResponse<FunCaptchaSolution> solve(@NotNull final FunCaptchaProxyRequest request)
-            throws AntiCaptchaComException, IOException {
-        return (solveSynchronized(request));
-    }
-
-    public @NotNull CompletableFuture<SolveResponse<FunCaptchaSolution>> solveAsync(@NotNull final FunCaptchaProxyRequest request) {
-        return (solveAsynchronous(request));
-    }
-
-    // GeeTest
-
-    private <T> @NotNull SolveResponse<T> solveSynchronized(@NotNull final SolveRequest solveRequest)
-            throws AntiCaptchaComException, IOException {
-        final SolveCaptchaSupplier<T> solveCaptcha = new SolveCaptchaSupplier<>(this, solveRequest);
-        return (solveCaptcha.solve());
-
-    }
-
-    private <T> @NotNull CompletableFuture<SolveResponse<T>> solveAsynchronous(@NotNull final SolveRequest solveRequest) {
-        final SolveCaptchaSupplier<T> solveCaptcha = new SolveCaptchaSupplier<>(this, solveRequest);
-        return CompletableFuture.supplyAsync(solveCaptcha);
-    }
-
-    // Account information
+    /*
+     $      Public methods
+     */
 
     /**
-     * This method return the balance of the account.
-     * @return The balance.
-     * @throws AntiCaptchaComException If the request failed.
-     * @throws IOException If an I/O error occurred.
+     * This method return the {@link ReporterAPI} to use
+     * to notify the AntiCaptcha.com team about the captchas
+     * that are not valid or valid.
+     * @return The {@link ReporterAPI}.
      */
-    public @NotNull BalanceResponse getBalance() throws AntiCaptchaComException, IOException {
-        final OkHttpClient client = new OkHttpClient();
-        final JSONObject body = new JSONObject();
-
-        body.put("clientKey", config.getApiKey());
-
-        final String responseString = sendPost(client, "https://api.anti-captcha.com/getBalance", body);
-        final ObjectMapper mapper = new ObjectMapper();
-        return (mapper.readValue(responseString, BalanceResponse.class));
+    public @NotNull ReporterAPI getReporterAPI() {
+        return (new ReporterAPI(this));
     }
 
-    @Deprecated
-    public @NotNull AppStatsResponse getAppStats() {
-        return (null);
+    public @NotNull AccountAPI getAccountAPI() {
+        return (new AccountAPI(this));
     }
 
-    @Deprecated
-    public @NotNull SpendingStatsResponse getSpendingStats() {
-        return (null);
+    public @NotNull SolverAPI getSolverAPI() {
+        return (new SolverAPI(this));
     }
 
-    // Request
+    /*
+     $      Private methods
+     */
 
     /**
      * This method send a POST request to the url given in parameter.
@@ -190,7 +67,9 @@ public final class AntiCaptchaComAPI {
      * @param body The body as a JSON object.
      * @return The response.
      */
-    @NotNull String sendPost(@NotNull final OkHttpClient client, @NotNull final String url, @NotNull final Object body) throws IOException, AntiCaptchaComException {
+    @NotNull String sendPost(@NotNull final OkHttpClient client,
+                             @NotNull final String url,
+                             @NotNull final Object body) throws IOException, AntiCaptchaComException {
 
         final Request request = new Request.Builder()
                 .url(url)
@@ -199,7 +78,7 @@ public final class AntiCaptchaComAPI {
         try (final Response response = client.newCall(request).execute()) {
             final String responseBody = response.body().string();
             final int code = response.code();
-            AntiCaptchaComException.verifyRequest(code, responseBody);
+            verifyRequest(code, responseBody);
             return (responseBody);
         }
     }
@@ -213,7 +92,7 @@ public final class AntiCaptchaComAPI {
      * @throws IOException If the request failed.
      */
     @NotNull String sendGet(@NotNull final OkHttpClient client,
-                                    @NotNull final String url) throws AntiCaptchaComException, IOException {
+                            @NotNull final String url) throws AntiCaptchaComException, IOException {
         final Request request = new Request.Builder()
                 .url(url)
                 .get()
@@ -221,21 +100,34 @@ public final class AntiCaptchaComAPI {
         try (final Response response = client.newCall(request).execute()) {
             final String responseBody = response.body().string();
             final int code = response.code();
-            AntiCaptchaComException.verifyRequest(code, responseBody);
+            verifyRequest(code, responseBody);
             return (responseBody);
         }
     }
 
+    /**
+     * Verifies that the request was successful.
+     * @param code The code of the response.
+     * @param body The body of the response.
+     * @throws AntiCaptchaComException If the request was not successful.
+     */
+    public void verifyRequest(final int code,
+                              @NotNull final String body) throws AntiCaptchaComException {
+        // If code is between 0 and 399, the request was successful.
+        if (code >= 0 && code <= 399)
+            return;
+        throw (new AntiCaptchaComException(code, body));
+    }
+
     // static functions
 
-    @SneakyThrows(IOException.class)
-    public static @NotNull QueueStatsResponse getQueueStats(@NotNull final CaptchaServiceType type) {
+    public static @NotNull QueueStatsResponse getQueueStats(@NotNull final CaptchaServiceType type) throws IOException {
         final OkHttpClient client = new OkHttpClient();
         final JSONObject body = new JSONObject();
         body.put("queueId", type.getValue());
 
         final Request request = new Request.Builder()
-                .url("https://api.anti-captcha.com/getQueueStats")
+                .url(getApiUrl() + "/getQueueStats")
                 .post(RequestBody.create(body.toString(), MediaType.parse("application/json")))
                 .build();
         try (final Response response = client.newCall(request).execute()) {

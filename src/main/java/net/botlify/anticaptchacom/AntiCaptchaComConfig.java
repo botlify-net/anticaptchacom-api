@@ -3,6 +3,7 @@ package net.botlify.anticaptchacom;
 import lombok.AccessLevel;
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Range;
 
 /**
  * The configuration of the AntiCaptchaCom API.
@@ -54,12 +55,10 @@ public final class AntiCaptchaComConfig {
 
     /**
      * Sets the soft id.
-     * @param softId The soft id.
+     * @param softId The soft id, must be greater than 0.
      * @return The current instance.
      */
-    public @NotNull AntiCaptchaComConfig setSoftId(final int softId) {
-        if (softId <= 0)
-            throw new IllegalArgumentException("Soft id must be greater than 0");
+    public @NotNull AntiCaptchaComConfig setSoftId(@Range(from = 0, to = Integer.MAX_VALUE) final int softId) {
         this.softId = softId;
         return (this);
     }
