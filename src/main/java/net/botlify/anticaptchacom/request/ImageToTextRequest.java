@@ -1,12 +1,16 @@
 package net.botlify.anticaptchacom.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.ToString;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.Range;
 
-public class ImageToTextRequest {
+@ToString
+@EqualsAndHashCode
+public class ImageToTextRequest implements SolveRequest {
 
     /**
      * The type of the request.
@@ -87,17 +91,30 @@ public class ImageToTextRequest {
         this.body = body;
     }
 
+    /**
+     * {@code true}: Requires workers to enter an answer with at least one "space".
+     * If there are no spaces, they will skip the task, so use it with caution.<br />
+     * {@code false}: No requirements.
+     * @param phrase The phrase.
+     * @return This request.
+     */
     public @NotNull ImageToTextRequest setPhrase(final boolean phrase) {
         this.phrase = phrase;
         return this;
     }
 
+    /**
+     * {@code false}: No requirements. (Default value)<br />
+     * {@code true}: Workers see a special mark indicating that the answer must be entered with case sensitivity.
+     * @param caseSensitivity The case sensitivity.
+     * @return This request.
+     */
     public @NotNull ImageToTextRequest setCaseSensitivity(final boolean caseSensitivity) {
         this.caseSensitivity = caseSensitivity;
         return this;
     }
 
-    public @NotNull ImageToTextRequest setNumeric(final int numeric) {
+    public @NotNull ImageToTextRequest setNumeric(@Range(from = 0, to = 2) final int numeric) {
         this.numeric = numeric;
         return this;
     }
@@ -107,21 +124,32 @@ public class ImageToTextRequest {
         return this;
     }
 
-    public @NotNull ImageToTextRequest setMinLength(final int minLength) {
+    public @NotNull ImageToTextRequest setMinLength(@Range(from = 0, to = Integer.MAX_VALUE) final int minLength) {
         this.minLength = minLength;
         return this;
     }
 
-    public @NotNull ImageToTextRequest setMaxLength(final int maxLength) {
+    public @NotNull ImageToTextRequest setMaxLength(@Range(from = 0, to = Integer.MAX_VALUE) final int maxLength) {
         this.maxLength = maxLength;
         return this;
     }
 
+    /**
+     * Additional comments for workers like "enter red text".<br />
+     * The result is not guaranteed and is totally up to the worker.
+     * @param comment The comment.
+     * @return This request.
+     */
     public @NotNull ImageToTextRequest setComment(@Nullable final String comment) {
         this.comment = comment;
         return this;
     }
 
+    /**
+     * Optional parameter to distinguish source of image captchas in spending statistics.
+     * @param websiteURL The website URL.
+     * @return This request.
+     */
     public @NotNull ImageToTextRequest setWebsiteURL(@Nullable final String websiteURL) {
         this.websiteURL = websiteURL;
         return this;
