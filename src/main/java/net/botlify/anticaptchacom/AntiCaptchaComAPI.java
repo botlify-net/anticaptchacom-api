@@ -1,11 +1,11 @@
 package net.botlify.anticaptchacom;
 
-import lombok.AccessLevel;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.*;
 import lombok.extern.log4j.Log4j2;
+import net.botlify.anticaptchacom.enums.CaptchaServiceType;
 import net.botlify.anticaptchacom.request.*;
+import net.botlify.anticaptchacom.response.QueueStatsResponse;
 import net.botlify.anticaptchacom.response.solution.FunCaptchaSolution;
 import net.botlify.anticaptchacom.response.solution.SolveResponse;
 import net.botlify.anticaptchacom.response.solution.ImageToTextSolution;
@@ -138,8 +138,6 @@ public final class AntiCaptchaComAPI {
 
     // GeeTest
 
-
-
     private <T> @NotNull SolveResponse<T> solveSynchronized(@NotNull final SolveRequest solveRequest)
             throws AntiCaptchaComException, IOException {
         final SolveCaptchaSupplier<T> solveCaptcha = new SolveCaptchaSupplier<>(this, solveRequest);
@@ -212,6 +210,25 @@ public final class AntiCaptchaComAPI {
             final int code = response.code();
             AntiCaptchaComException.verifyRequest(code, responseBody);
             return (responseBody);
+        }
+    }
+
+    // static functions
+
+    @SneakyThrows(IOException.class)
+    public static @NotNull QueueStatsResponse getQueueStats(@NotNull final CaptchaServiceType type) {
+        final OkHttpClient client = new OkHttpClient();
+        final JSONObject body = new JSONObject();
+        body.put("queueId", type.getValue());
+
+        final Request request = new Request.Builder()
+                .url("https://api.anti-captcha.com/getQueueStats")
+                .post(RequestBody.create(body.toString(), MediaType.parse("application/json")))
+                .build();
+        try (final Response response = client.newCall(request).execute()) {
+            final String responseBody = response.body().string();
+            final ObjectMapper mapper = new ObjectMapper();
+            return (mapper.readValue(responseBody, QueueStatsResponse.class));
         }
     }
 
