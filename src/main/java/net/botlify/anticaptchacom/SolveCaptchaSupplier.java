@@ -70,7 +70,7 @@ public final class SolveCaptchaSupplier<R> implements Supplier<SolveResponse<R>>
         final JSONObject requestJson = new JSONObject();
         requestJson.put("clientKey", api.getConfig().getApiKey());
         requestJson.put("task", request.requestJson());
-        requestJson.put("softId", 0);
+        requestJson.put("softId", api.getConfig().getSoftId());
 
         final String responseString = api.sendPost(client, "https://api.anti-captcha.com/createTask", request);
         final JSONObject responseJson = new JSONObject(responseString);

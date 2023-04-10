@@ -25,6 +25,12 @@ public final class AntiCaptchaComConfig {
     private int sleepBetweenAttemptsMillis = 1000;
 
     /**
+     * The id of the project.
+     */
+    @Getter(AccessLevel.PACKAGE)
+    private int softId = 0;
+
+    /**
      * Creates a new {@link AntiCaptchaComConfig}.
      * @param apiKey The API key.
      */
@@ -43,6 +49,18 @@ public final class AntiCaptchaComConfig {
         if (sleepBetweenAttemptsMillis <= 0)
             throw new IllegalArgumentException("Sleep between attempts must be greater than 0");
         this.sleepBetweenAttemptsMillis = sleepBetweenAttemptsMillis;
+        return (this);
+    }
+
+    /**
+     * Sets the soft id.
+     * @param softId The soft id.
+     * @return The current instance.
+     */
+    public @NotNull AntiCaptchaComConfig setSoftId(final int softId) {
+        if (softId <= 0)
+            throw new IllegalArgumentException("Soft id must be greater than 0");
+        this.softId = softId;
         return (this);
     }
 
