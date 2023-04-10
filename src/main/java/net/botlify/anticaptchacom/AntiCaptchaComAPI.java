@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.ToString;
 import lombok.extern.log4j.Log4j2;
 import net.botlify.anticaptchacom.request.*;
+import net.botlify.anticaptchacom.response.solution.FunCaptchaSolution;
 import net.botlify.anticaptchacom.response.solution.SolveResponse;
 import net.botlify.anticaptchacom.response.solution.ImageToTextSolution;
 import net.botlify.anticaptchacom.response.solution.RecaptchaSolution;
@@ -112,6 +113,32 @@ public final class AntiCaptchaComAPI {
     public @NotNull CompletableFuture<SolveResponse<RecaptchaSolution>> solveAsync(@NotNull final RecaptchaV3EnterpriseRequest request) {
         return (solveAsynchronous(request));
     }
+
+    // Fun captcha
+
+    public @NotNull SolveResponse<FunCaptchaSolution> solve(@NotNull final FunCaptchaRequest request)
+            throws AntiCaptchaComException, IOException {
+        return (solveSynchronized(request));
+    }
+
+    public @NotNull CompletableFuture<SolveResponse<FunCaptchaSolution>> solveAsync(@NotNull final FunCaptchaRequest request) {
+        return (solveAsynchronous(request));
+    }
+
+    // Fun captcha proxy
+
+    public @NotNull SolveResponse<FunCaptchaSolution> solve(@NotNull final FunCaptchaProxyRequest request)
+            throws AntiCaptchaComException, IOException {
+        return (solveSynchronized(request));
+    }
+
+    public @NotNull CompletableFuture<SolveResponse<FunCaptchaSolution>> solveAsync(@NotNull final FunCaptchaProxyRequest request) {
+        return (solveAsynchronous(request));
+    }
+
+    // GeeTest
+
+
 
     private <T> @NotNull SolveResponse<T> solveSynchronized(@NotNull final SolveRequest solveRequest)
             throws AntiCaptchaComException, IOException {
