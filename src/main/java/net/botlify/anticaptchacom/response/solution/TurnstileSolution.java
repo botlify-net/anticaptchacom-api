@@ -1,11 +1,15 @@
 package net.botlify.anticaptchacom.response.solution;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.ToString;
 import org.jetbrains.annotations.NotNull;
 
 /**
  * The solution for the turnstile captcha.
  */
+@ToString
+@EqualsAndHashCode
 public class TurnstileSolution {
 
     /**

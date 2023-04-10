@@ -5,7 +5,10 @@ import lombok.*;
 import lombok.extern.log4j.Log4j2;
 import net.botlify.anticaptchacom.enums.CaptchaServiceType;
 import net.botlify.anticaptchacom.request.*;
+import net.botlify.anticaptchacom.response.AppStatsResponse;
+import net.botlify.anticaptchacom.response.BalanceResponse;
 import net.botlify.anticaptchacom.response.QueueStatsResponse;
+import net.botlify.anticaptchacom.response.SpendingStatsResponse;
 import net.botlify.anticaptchacom.response.solution.FunCaptchaSolution;
 import net.botlify.anticaptchacom.response.solution.SolveResponse;
 import net.botlify.anticaptchacom.response.solution.ImageToTextSolution;
@@ -158,15 +161,25 @@ public final class AntiCaptchaComAPI {
      * @throws AntiCaptchaComException If the request failed.
      * @throws IOException If an I/O error occurred.
      */
-    public @NotNull Float getBalance() throws AntiCaptchaComException, IOException {
+    public @NotNull BalanceResponse getBalance() throws AntiCaptchaComException, IOException {
         final OkHttpClient client = new OkHttpClient();
         final JSONObject body = new JSONObject();
 
         body.put("clientKey", config.getApiKey());
 
         final String responseString = sendPost(client, "https://api.anti-captcha.com/getBalance", body);
-        final JSONObject responseJson = new JSONObject(responseString);
-        return (responseJson.getFloat("balance"));
+        final ObjectMapper mapper = new ObjectMapper();
+        return (mapper.readValue(responseString, BalanceResponse.class));
+    }
+
+    @Deprecated
+    public @NotNull AppStatsResponse getAppStats() {
+        return (null);
+    }
+
+    @Deprecated
+    public @NotNull SpendingStatsResponse getSpendingStats() {
+        return (null);
     }
 
     // Request
