@@ -1,10 +1,14 @@
 package net.botlify.anticaptchacom.request;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.ToString;
 import net.botlify.anticaptchacom.enums.RecaptchaV3MinScore;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+@ToString
+@EqualsAndHashCode
 public class RecaptchaV3Request implements SolveRequest {
 
     /**

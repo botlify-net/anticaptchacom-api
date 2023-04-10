@@ -1,6 +1,8 @@
 package net.botlify.anticaptchacom.request;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.ToString;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -8,6 +10,8 @@ import org.jetbrains.annotations.Nullable;
  * Define a task to solve a Recaptcha V2 without proxy.
  * @see <a href="https://anti-captcha.com/apidoc/task-types/RecaptchaV2TaskProxyless">RecaptchaV2TaskProxyless</a>
  */
+@ToString
+@EqualsAndHashCode
 public class RecaptchaV2Request implements SolveRequest {
 
     /**

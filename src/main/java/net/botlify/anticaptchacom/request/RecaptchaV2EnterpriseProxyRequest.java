@@ -9,19 +9,12 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
 
-/**
- * A {@link RecaptchaV2ProxyRequest} is a request to solve a reCAPTCHA v2 with a proxy.
- * @see <a href="https://anti-captcha.com/apidoc/task-types/RecaptchaV2Task">RecaptchaV2Task</a>
- */
 @ToString
 @EqualsAndHashCode(callSuper = true)
-public class RecaptchaV2ProxyRequest extends RecaptchaV2Request {
+public class RecaptchaV2EnterpriseProxyRequest extends RecaptchaV2EnterpriseRequest {
 
-    /**
-     * The task type.
-     */
-    @Getter
-    private final String type = "RecaptchaV2Task";
+    private final String type = "RecaptchaV2EnterpriseTask";
+
 
     /**
      * The proxy type to use for the worker.
@@ -44,7 +37,8 @@ public class RecaptchaV2ProxyRequest extends RecaptchaV2Request {
     /**
      * The proxy login to use for the worker.
      */
-    @Nullable @Getter
+    @Nullable
+    @Getter
     private String proxyLogin;
 
     /**
@@ -65,21 +59,12 @@ public class RecaptchaV2ProxyRequest extends RecaptchaV2Request {
     @NotNull @Getter
     private final String userAgent;
 
-    /**
-     * Construct a new {@link RecaptchaV2Request}.
-     * @param websiteURL The website URL.
-     * @param captchaSiteKey The captcha site key.
-     * @param userAgent The user agent to use for the worker.
-     * @param proxyType The proxy type to use for the worker.
-     * @param proxyAddress The proxy address to use for the worker.
-     * @param proxyPort The proxy port to use for the worker.
-     */
-    public RecaptchaV2ProxyRequest(@NotNull final String websiteURL,
-                                   @NotNull final String captchaSiteKey,
-                                   @NotNull final String userAgent,
-                                   @NotNull final ProxyType proxyType,
-                                   @NotNull final String proxyAddress,
-                                   final int proxyPort) {
+    public RecaptchaV2EnterpriseProxyRequest(@NotNull final String websiteURL,
+                                             @NotNull final String captchaSiteKey,
+                                             @NotNull final String userAgent,
+                                             @NotNull final ProxyType proxyType,
+                                             @NotNull final String proxyAddress,
+                                             final int proxyPort) {
         super(websiteURL, captchaSiteKey);
         this.userAgent = userAgent;
         this.proxyType = proxyType;
@@ -92,8 +77,8 @@ public class RecaptchaV2ProxyRequest extends RecaptchaV2Request {
      * @param proxyLogin The proxy login.
      * @return The current instance.
      */
-    public @NotNull RecaptchaV2ProxyRequest setProxyLoginAndPassword(@NotNull final String proxyLogin,
-                                                                     @NotNull final String proxyPassword) {
+    public @NotNull RecaptchaV2EnterpriseProxyRequest setProxyLoginAndPassword(@NotNull final String proxyLogin,
+                                                                               @NotNull final String proxyPassword) {
         this.proxyLogin = proxyLogin;
         this.proxyPassword = proxyPassword;
         return (this);
@@ -104,7 +89,7 @@ public class RecaptchaV2ProxyRequest extends RecaptchaV2Request {
      * @param cookies The cookies to use.
      * @return The current instance.
      */
-    public @NotNull RecaptchaV2ProxyRequest setCookies(@NotNull final Map<String, String> cookies) {
+    public @NotNull RecaptchaV2EnterpriseProxyRequest setCookies(@NotNull final Map<String, String> cookies) {
         this.cookies = cookies;
         return (this);
     }
