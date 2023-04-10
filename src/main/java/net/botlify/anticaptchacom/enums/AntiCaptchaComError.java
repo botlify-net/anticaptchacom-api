@@ -1,7 +1,12 @@
 package net.botlify.anticaptchacom.enums;
 
 import lombok.Getter;
+import org.jetbrains.annotations.Nullable;
 
+/**
+ * This enum follow the documentation of the AntiCaptchaCom API.
+ * @see <a href="https://anti-captcha.com/apidoc/errors">Error reference</a>
+ */
 public enum AntiCaptchaComError {
 
     /**
@@ -211,6 +216,19 @@ public enum AntiCaptchaComError {
      */
     AntiCaptchaComError(final int code) {
         this.code = code;
+    }
+
+    /**
+     * Returns the error from the code.
+     * @param code The code of the error.
+     * @return The error.
+     */
+    public static @Nullable AntiCaptchaComError fromCode(final int code) {
+        for (final AntiCaptchaComError error : values()) {
+            if (error.getCode() == code)
+                return (error);
+        }
+        return (null);
     }
 
 }

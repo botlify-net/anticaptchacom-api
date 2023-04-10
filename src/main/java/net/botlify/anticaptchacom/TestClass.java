@@ -3,20 +3,12 @@ package net.botlify.anticaptchacom;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
-import net.botlify.anticaptchacom.request.RecaptchaV2EnterpriseRequest;
-
-import java.util.HashMap;
-import java.util.Map;
+import net.botlify.anticaptchacom.response.solution.SolveResponse;
+import org.json.JSONObject;
 
 public class TestClass {
 
     public static void main(String[] args) throws JsonProcessingException {
-        RecaptchaV2EnterpriseRequest request = new RecaptchaV2EnterpriseRequest("url", "key");
-        final Map<String, String> myMap = new HashMap<>();
-        myMap.put("key", "value");
-        request.setEnterprisePayload(myMap);
-        final ObjectMapper mapper = new ObjectMapper();
-        System.out.println(mapper.writeValueAsString(request));
 
     }
 

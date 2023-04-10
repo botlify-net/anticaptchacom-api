@@ -2,11 +2,12 @@ package net.botlify.anticaptchacom;
 
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * An exception thrown by the AntiCaptchaCom API.
  */
-public class AntiCaptchaComException extends Exception {
+public final class AntiCaptchaComException extends Exception {
 
     /**
      * The code of the response.

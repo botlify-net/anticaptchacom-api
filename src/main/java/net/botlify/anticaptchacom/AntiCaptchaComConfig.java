@@ -7,7 +7,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * The configuration of the AntiCaptchaCom API.
  */
-public class AntiCaptchaComConfig {
+public final class AntiCaptchaComConfig {
 
     /**
      * The api key of anti-captcha.com.
