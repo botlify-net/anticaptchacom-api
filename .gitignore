@@ -38,4 +38,4 @@ build/
 .DS_Store
 .idea
 
-/src/main/java/net/botlify/anticaptchacom/MainClass.java
+/src/main/kotlin/net/botlify/anticaptchacom/MainClass.java
