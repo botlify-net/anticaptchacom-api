@@ -10,11 +10,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AntiCaptchaComAPITest {
 
-    @Test
-    void getQueueStats() throws IOException {
-        final QueueStatsResponse response = AntiCaptchaComAPI
-                .getQueueStats(CaptchaServiceType.RECAPTCHA_V2_WITHOUT_PROXY);
-        assertNotNull(response);
-        System.out.println(response);
-    }
+  @Test
+  void getQueueStats() throws IOException {
+    final QueueStatsResponse response = AntiCaptchaComAPI
+        .getQueueStats(CaptchaServiceType.RECAPTCHA_V2_WITHOUT_PROXY);
+    assertNotNull(response);
+    System.out.println(response);
+  }
 }

@@ -1,45 +1,61 @@
 package net.botlify.anticaptchacom.response.solution;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.*;
 import net.botlify.anticaptchacom.enums.TaskStatus;
 
+@Getter
 @ToString
 @EqualsAndHashCode
-public abstract class SolveResponse<R> {
+@NoArgsConstructor(force = true, access = AccessLevel.PRIVATE)
+public class SolveResponse<R> {
 
-    @Getter
-    private TaskStatus status;
+  /**
+   * The id of the error.
+   */
+  @JsonProperty("errorId")
+  private int errorId;
 
-    @Getter
-    private double cost;
+  /**
+   * The status of the task.
+   */
+  @JsonProperty("status")
+  private TaskStatus status;
 
-    @Getter
-    private String ip;
+  /**
+   * The cost of the task in USD.
+   */
+  @JsonProperty("cost")
+  private double cost;
 
-    /**
-     * The time the task was created in UNIX time.
-     */
-    @Getter
-    private int createTime;
+  /**
+   * The IP address of the worker who completed the task.
+   */
+  @JsonProperty("ip")
+  private String ip;
 
-    /**
-     * The time the task was ended in UNIX time.
-     */
-    @Getter
-    private int endTime;
+  /**
+   * The time the task was created in UNIX time.
+   */
+  @JsonProperty("createTime")
+  private int createTime;
 
-    /**
-     * Number of workers who tried to complete your task.
-     */
-    @Getter
-    private int solveCount;
+  /**
+   * The time the task was ended in UNIX time.
+   */
+  @JsonProperty("endTime")
+  private int endTime;
 
-    /**
-     * The solution of the task.
-     */
-    @Getter
-    private R solution;
+  /**
+   * Number of workers who tried to complete your task.
+   */
+  @JsonProperty("solveCount")
+  private int solveCount;
+
+  /**
+   * The solution of the task.
+   */
+  @JsonProperty("solution")
+  private R solution;
 
 }

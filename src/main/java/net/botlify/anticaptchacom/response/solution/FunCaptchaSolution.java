@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 @EqualsAndHashCode
 public class FunCaptchaSolution {
 
-    @Getter(onMethod_ = @NotNull)
+    @Getter
     private String solution;
 
 }

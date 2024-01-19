@@ -5,14 +5,15 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
+@Getter
 @ToString
 @EqualsAndHashCode
 public class RecaptchaSolution {
 
-    /**
-     * Token string required for interacting with the submit form on the target website.
-     */
-    @Getter @JsonProperty("gRecaptchaResponse")
-    private String gRecaptchaResponse;
+  /**
+   * Token string required for interacting with the submitted form on the target website.
+   */
+  @JsonProperty("gRecaptchaResponse")
+  private String gRecaptchaResponse;
 
 }

@@ -1,5 +1,6 @@
-package net.botlify.anticaptchacom;
+package net.botlify.anticaptchacom.api;
 
+import net.botlify.anticaptchacom.AntiCaptchaComAPI;
 import net.botlify.anticaptchacom.exceptions.AntiCaptchaComException;
 import okhttp3.OkHttpClient;
 import org.jetbrains.annotations.NotNull;
@@ -22,7 +23,7 @@ public final class ReporterAPI {
      * Construct a new {@link ReporterAPI}.
      * @param api The API to use.
      */
-    ReporterAPI(@NotNull final AntiCaptchaComAPI api) {
+    public ReporterAPI(@NotNull final AntiCaptchaComAPI api) {
         this.api = api;
     }
 
@@ -87,7 +88,7 @@ public final class ReporterAPI {
         final JSONObject jsonObject = new JSONObject();
         jsonObject.put("clientKey", api.getConfig().getApiKey());
         jsonObject.put("taskId", taskId);
-        api.sendPost(client, url, jsonObject);
+        api.getHttpRequester().sendPost(client, url, jsonObject);
     }
 
 }

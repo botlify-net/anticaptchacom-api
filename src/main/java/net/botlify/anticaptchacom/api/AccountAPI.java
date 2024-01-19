@@ -1,7 +1,8 @@
-package net.botlify.anticaptchacom;
+package net.botlify.anticaptchacom.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
+import net.botlify.anticaptchacom.AntiCaptchaComAPI;
 import net.botlify.anticaptchacom.exceptions.AntiCaptchaComException;
 import net.botlify.anticaptchacom.response.AppStatsResponse;
 import net.botlify.anticaptchacom.response.BalanceResponse;
@@ -17,14 +18,14 @@ public class AccountAPI {
     @Getter @NotNull
     private final AntiCaptchaComAPI api;
 
-    AccountAPI(@NotNull final AntiCaptchaComAPI api) {
+    public AccountAPI(@NotNull final AntiCaptchaComAPI api) {
         this.api = api;
     }
 
     // Account information
 
     /**
-     * This method return the balance of the account.
+     * This method returns the balance of the account.
      * @return The balance.
      * @throws AntiCaptchaComException If the request failed.
      * @throws IOException If an I/O error occurred.
@@ -34,7 +35,7 @@ public class AccountAPI {
         final JSONObject body = new JSONObject();
         body.put("clientKey", api.getConfig().getApiKey());
 
-        final String responseString = api.sendPost(client, "https://api.anti-captcha.com/getBalance", body);
+        final String responseString = api.getHttpRequester().sendPost(client, AntiCaptchaComAPI.getApiUrl() + "getBalance", body);
         final ObjectMapper mapper = new ObjectMapper();
         return (mapper.readValue(responseString, BalanceResponse.class));
     }

@@ -9,23 +9,26 @@ import org.jetbrains.annotations.NotNull;
 @EqualsAndHashCode
 public class HCaptchaSolution {
 
-    /**
-     * Token string required for interacting with the submit form on the target website.
-     */
-    @Getter(onMethod_ = @NotNull)
-    private String gRecaptchaResponse;
+  /**
+   * Token string required for interacting with the submit form on the target website.
+   */
+  @NotNull
+  @Getter
+  private String gRecaptchaResponse;
 
-    /**
-     * Output of "window.hcaptcha.getRespKey()" function when it is available.
-     * Some websites use it for additional verification.
-     */
-    @Getter(onMethod_ = @NotNull)
-    private String respKey;
+  /**
+   * Output of "window.hcaptcha.getRespKey()" function when it is available.
+   * Some websites use it for additional verification.
+   */
+  @NotNull
+  @Getter
+  private String respKey;
 
-    /**
-     * User-Agent of worker's browser. Use it when you submit the response token.
-     */
-    @Getter(onMethod_ = @NotNull)
-    private String userAgent;
+  /**
+   * User-Agent of worker's browser. Use it when you submit the response token.
+   */
+  @NotNull
+  @Getter
+  private String userAgent;
 
 }

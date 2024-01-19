@@ -1,0 +1,66 @@
+{
+  "errorId": 0,
+  "status": "ready",
+  "solution": {
+    "cookies": {
+      "_ym_uid": "1637841149407895406",
+      "_ym_d": "1637841149",
+      "_ym_isad": "2",
+      "i18n_redirected2": "en"
+    },
+    "localStorage": {
+      "_ym40786994_lsid": "322553582843",
+      "_ym40786994_reqNum": "3",
+      "_ym_fip": "65aac1083a9e31e5db7fc4a33816f1da-a81f3b9bcdd80a361c14af38dc09b309-a81f3b9bcdd80a361c14af38dc09b309-4bd84c89c35a312599d807af285e7b5f-615e6e8d95ae2de0910b550b0e4dfce2-00b2e6de4e7f2e69dd7de8ef95c7338a-61b9878bbce18de73aafc8582a198c0c-33ad8703f96139d946191563a4c623e6-a81f3b9bcdd80a361c14af38dc09b309-c6d7b47b2dcff33f80cab17f3a360d0b-a95e7098ce4ab7ec9daa7fb4154b8ff4",
+      "_ym_retryReqs": "{}",
+      "_ym40786994_lastHit": "1637841164076",
+      "_ym_uid": "1637841149407895406"
+    },
+    "fingerprint": {
+      "self.navigator.userAgent": "Mozilla/5.0 (Windows NT 6.3; Win64; x64; rv:94.0) Gecko/20100101 Firefox/94.0",
+      "self.screen.width": 1280,
+      "self.screen.height": 768,
+      "self.screen.availWidth": 1280,
+      "self.screen.availHeight": 728,
+      "self.screen.availLeft": 0,
+      "self.screen.availTop": 0,
+      "self.navigator.vendorSub": "",
+      "self.navigator.productSub": "20100101",
+      "self.navigator.vendor": "",
+      "self.navigator.maxTouchPoints": 0,
+      "self.navigator.hardwareConcurrency": 2,
+      "self.navigator.cookieEnabled": true,
+      "self.navigator.appCodeName": "Mozilla",
+      "self.navigator.appName": "Netscape",
+      "self.navigator.appVersion": "5.0 (Windows)",
+      "self.navigator.platform": "Win32",
+      "self.navigator.product": "Gecko",
+      "self.navigator.language": "en-US",
+      "self.navigator.onLine": true,
+      "self.navigator.doNotTrack": "unspecified"
+    },
+    "url": "https://anti-captcha.com/tutorials/success-page?login=some%20login&pass=the%20password",
+    "domain": "anti-captcha.com",
+    "domainsOfInterest": {
+      "any-other-domain.com": {
+        "cookies": {
+          "example": "value",
+          "comment": "This will be available when you fill a list of Domains Of Interest in the template itself or via domainsOfInterest parameter in the task object"
+        },
+        "localStorage": {
+          "example": "localStorage value"
+        },
+        "url": "https://any-other-domain.com/some/path",
+        "domain": "any-other-domain.com"
+      }
+    },
+    "screenshots": [],
+    "requestHeaders": [],
+    "responseHeaders": []
+  },
+  "cost": "0.00858",
+  "ip": "5.25.11.114",
+  "createTime": 1637841143,
+  "endTime": 1637841189,
+  "solveCount": 0
+}
