@@ -7,7 +7,6 @@ import net.botlify.anticaptchacom.data.response.solution.TurnstileSolution
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import java.io.IOException
-import kotlin.contracts.contract
 
 @Deprecated("")
 object MainClass {
@@ -29,6 +28,6 @@ object MainClass {
 
         val request = TurnstileRequest(url, captchaKey)
         val result: SolveResponse<TurnstileSolution> = api.solverAPI.solve(request)
-        println(result)
+        log.info("Result: {}", result)
     }
 }

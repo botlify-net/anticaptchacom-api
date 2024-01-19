@@ -3,7 +3,7 @@ package net.botlify.anticaptchacom.data.response.solution
 import com.fasterxml.jackson.annotation.JsonProperty
 import net.botlify.anticaptchacom.enums.TaskStatus
 
-class SolveResponse<T> internal constructor(
+data class SolveResponse<T> internal constructor(
     /**
      * The id of the error.
      */
@@ -20,7 +20,7 @@ class SolveResponse<T> internal constructor(
      * The cost of the task in USD.
      */
     @JsonProperty("cost")
-    val cost: Int,
+    val cost: String,
 
     /**
      * The IP address of the worker who completed the task.

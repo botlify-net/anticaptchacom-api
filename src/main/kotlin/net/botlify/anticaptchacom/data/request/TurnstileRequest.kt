@@ -19,7 +19,13 @@ data class TurnstileRequest(
      * Turnstile site key.
      */
     @JsonProperty("websiteKey")
-    val websiteKey: String
+    val websiteKey: String,
+
+    @JsonProperty("action")
+    val action: String? = null,
+
+    @JsonProperty("turnstileCData")
+    val turnstileCData: String? = null,
 ) {
     @JsonProperty("type")
     val type = "TurnstileTaskProxyless"

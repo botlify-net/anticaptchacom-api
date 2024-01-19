@@ -5,6 +5,7 @@ import net.botlify.anticaptchacom.exceptions.AntiCaptchaComException
 import net.botlify.anticaptchacom.data.response.solution.SolveResponse
 import net.botlify.anticaptchacom.supplier.utils.StartTask
 import net.botlify.anticaptchacom.supplier.utils.TaskResponse
+import org.apache.logging.log4j.LogManager
 import java.io.IOException
 import java.util.function.Supplier
 
@@ -17,6 +18,9 @@ internal class SolveCaptchaSupplier<R>(
     private val request: Any,
     private val clazz: Class<R>,
 ) : Supplier<SolveResponse<R>> {
+    companion object {
+        private val log = LogManager.getLogger(SolveCaptchaSupplier::class.java)
+    }
 
     override fun get(): SolveResponse<R> {
         return (solve())
@@ -25,7 +29,7 @@ internal class SolveCaptchaSupplier<R>(
     @Throws(AntiCaptchaComException::class, IOException::class)
     fun solve(): SolveResponse<R> {
         val startTask = StartTask(api, request)
-        val taskId = startTask.startTask();
+        val taskId = startTask.startTask()
         val response = TaskResponse(api, taskId, clazz)
         return response.getResponse()
     }

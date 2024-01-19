@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 /**
  * The solution for the turnstile captcha.
  */
-class TurnstileSolution internal constructor(
+data class TurnstileSolution internal constructor(
     /**
      * Token string required for interacting with the submitted form on the target website.
      */

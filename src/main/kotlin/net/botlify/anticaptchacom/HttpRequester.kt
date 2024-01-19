@@ -11,7 +11,7 @@ import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.IOException
 
-internal const val API_URL = "https://api.anti-captcha.com"
+private const val API_URL = "https://api.anti-captcha.com"
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 private class ErrorId(
@@ -26,12 +26,12 @@ internal class HttpRequester {
 
     @Throws(IOException::class, AntiCaptchaComException::class)
     fun sendPost(
-        url: String,
+        path: String,
         body: String,
     ): String {
-        val mapper = jacksonObjectMapper()
+        val url = "$API_URL/$path"
         val parse = "application/json".toMediaType();
-        val bodyJson = mapper.writeValueAsString(body).toRequestBody(parse);
+        val bodyJson = body.toRequestBody(parse);
 
         val request: Request = Request.Builder()
             .url(url)
@@ -46,8 +46,9 @@ internal class HttpRequester {
 
     @Throws(IOException::class, AntiCaptchaComException::class)
     fun sendGet(
-        url: String,
+        path: String,
     ): String {
+        val url = "$API_URL/$path"
         val request: Request = Request.Builder()
             .url(url)
             .get()

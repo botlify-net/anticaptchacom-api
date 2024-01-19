@@ -39,3 +39,4 @@ build/
 .idea
 
 /src/main/kotlin/net/botlify/anticaptchacom/MainClass.java
+/src/main/resources/log4j2.xml

@@ -3,7 +3,6 @@ package net.botlify.anticaptchacom.supplier.utils
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import net.botlify.anticaptchacom.API_URL
 import net.botlify.anticaptchacom.AntiCaptchaComClient
 import net.botlify.anticaptchacom.data.response.solution.SolveResponse
 import net.botlify.anticaptchacom.enums.TaskStatus
@@ -41,7 +40,7 @@ internal class TaskResponse<T>(
 
     @Throws(AntiCaptchaComException::class, TimeoutException::class)
     fun getResponse(): SolveResponse<T> {
-        return (getResponse(0))
+        return (getResponse(1))
     }
 
     private fun getResponse(attempt: Int): SolveResponse<T> {
@@ -52,9 +51,11 @@ internal class TaskResponse<T>(
 
         return when (taskResult.status) {
             TaskStatus.PROCESSING -> {
+                log.trace("Task id {} is still processing...", taskId)
                 getResponse(attempt + 1)
             }
             TaskStatus.READY -> {
+                log.trace("Task id {} is ready!", taskId)
                 mapResponse(responseString)
             }
         }
@@ -63,11 +64,12 @@ internal class TaskResponse<T>(
     private fun verifyAttemptAndSleep(attempt: Int) {
         val firstSleepTime = api.config.firstSleepBetweenAttemptsMillis
         val otherSleepTime = api.config.sleepBetweenAttemptsMillis
-        val sleepTime = if (attempt == 0) firstSleepTime else otherSleepTime
+        val sleepTime = if (attempt == 1) firstSleepTime else otherSleepTime
         val maxAttempts = api.config.maxAttempts;
         if (attempt > maxAttempts) {
             throw TimeoutException("Max attempts reached for anti-captcha.com for task id $taskId")
         }
+        log.trace("Attempt {} of {} for task id {}", attempt, maxAttempts, taskId)
         log.trace("Sleeping {} millis before getting captcha solution for task id {}...", sleepTime, taskId)
         Thread.sleep(sleepTime.toLong())
     }
@@ -76,7 +78,7 @@ internal class TaskResponse<T>(
         val mapper = jacksonObjectMapper()
         val request = TaskRequest(api.config.apiKey, taskId)
         val requestJson = mapper.writeValueAsString(request)
-        val responseString: String = api.httpRequester.sendPost("$API_URL/getTaskResult", requestJson)
+        val responseString: String = api.httpRequester.sendPost("/getTaskResult", requestJson)
         return responseString;
     }
 
