@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" shutdownHook="disable" monitorInterval="10">
+  <Appenders>
+    <Console name="console" target="SYSTEM_OUT">
+      <PatternLayout pattern="[REFRESH] {%tid} [%-5p] %d{dd-MM-yyyy HH:mm:ss,SSS} (%c{1}:%L): %m%n"/>
+    </Console>
+  </Appenders>
+  <Loggers>
+    <Root level="debug">
+      <AppenderRef ref="console" level="all"/>
+    </Root>
+    <Logger name="org.mongodb.driver" level="warn">
+      <AppenderRef ref="console"/>
+    </Logger>
+    <Logger name="com.slack.api.util.http.listener" level="warn">
+      <AppenderRef ref="console"/>
+    </Logger>
+    <Logger name="net.dv8tion.jda" level="warn">
+      <AppenderRef ref="console"/>
+    </Logger>
+    <!-- Disable Redisson -->
+    <Logger name="org.redisson" level="warn">
+      <AppenderRef ref="console"/>
+    </Logger>
+    <!-- Disable Jetty logging -->
+    <Logger name="org.eclipse.jetty" level="warn">
+      <AppenderRef ref="console"/>
+    </Logger>
+    <!-- Disable netty logging -->
+    <Logger name="io.netty" level="warn">
+      <AppenderRef ref="console"/>
+    </Logger>
+    <!-- Disable org.apache.http -->
+    <Logger name="org.apache" level="warn">
+      <AppenderRef ref="console"/>
+    </Logger>
+    <!-- Disable OkHttp -->
+    <Logger name="okhttp3" level="warn">
+      <AppenderRef ref="console"/>
+    </Logger>
+  </Loggers>
+</Configuration>
