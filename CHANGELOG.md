@@ -1,6 +1,5 @@
 Feature:
-- Migrate to Kotlin
-- Add support for Cloudflare Turnstile
+- Add more log in the requester
 
-Removed:
-- Support for other captcha types than Cloudflare Turnstile
+Fix:
+- Add get value for serialization of AntiCaptchaComError

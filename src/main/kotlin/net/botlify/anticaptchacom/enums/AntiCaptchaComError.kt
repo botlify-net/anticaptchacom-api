@@ -1,10 +1,12 @@
 package net.botlify.anticaptchacom.enums
 
+import com.fasterxml.jackson.annotation.JsonValue
+
 /**
  * This enum follows the documentation of the AntiCaptchaCom API.
  * @see [Error reference](https://anti-captcha.com/apidoc/errors)
  */
-enum class AntiCaptchaComError(val code: Int) {
+enum class AntiCaptchaComError(@get:JsonValue val value: Int) {
     /**
      * Code 0 is for "no errors".
      */
@@ -202,18 +204,4 @@ enum class AntiCaptchaComError(val code: Int) {
      * Worker canceled antiGate task. See "errorDescription" field for the cancellation reason.
      */
     ERROR_TASK_CANCELED(57);
-
-    companion object {
-        /**
-         * Returns the error from the code.
-         * @param code The code of the error.
-         * @return The error.
-         */
-        fun fromCode(code: Int): AntiCaptchaComError? {
-            for (error in entries) {
-                if (error.code == code) return (error)
-            }
-            return (null)
-        }
-    }
 }

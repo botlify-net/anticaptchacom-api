@@ -9,6 +9,7 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
+import org.apache.logging.log4j.LogManager
 import java.io.IOException
 
 private const val API_URL = "https://api.anti-captcha.com"
@@ -23,6 +24,10 @@ internal class HttpRequester {
 
     private val client: OkHttpClient = OkHttpClient.Builder()
         .build()
+
+    companion object {
+        private val log = LogManager.getLogger(HttpRequester::class.java)
+    }
 
     @Throws(IOException::class, AntiCaptchaComException::class)
     fun sendPost(
@@ -39,6 +44,7 @@ internal class HttpRequester {
             .build()
         client.newCall(request).execute().use { response ->
             val responseBody = response.body.string()
+            log.trace("Response POST to url $url: {}", responseBody)
             verifyRequest(responseBody)
             return (responseBody)
         }
@@ -55,6 +61,7 @@ internal class HttpRequester {
             .build()
         client.newCall(request).execute().use { response ->
             val responseBody = response.body.string()
+            log.trace("Response GET to url $url: {}", responseBody)
             verifyRequest(responseBody)
             return (responseBody)
         }
